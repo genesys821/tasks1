@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Taller Digital — Tareas de Tecnología y Artística</title>
+<style>
+  :root{
+    --paper:#ECEFEA;
+    --paper-alt:#F7F8F4;
+    --ink:#23292B;
+    --ink-soft:#5B645F;
+    --line:#D6D9CE;
+    --tec:#1F6F78;
+    --tec-soft:#E4F0EF;
+    --tec-grad:linear-gradient(135deg,#18C4B8 0%,#1F6F78 55%,#0E3B41 100%);
+    --art:#C98A2C;
+    --art-soft:#FBF0DD;
+    --art-grad:linear-gradient(135deg,#F7C948 0%,#C98A2C 55%,#8A4B14 100%);
+    --alert:#B8503D;
+    --alert-soft:#F7E7E2;
+    --ok:#3E7C4A;
+    --ok-soft:#E6F0E5;
+    --g9:#6C5CE7;
+    --g9-soft:#EDEBFC;
+    --g10:#0984E3;
+    --g10-soft:#E3F1FC;
+    --g11:#E1670E;
+    --g11-soft:#FCEADB;
+    --gen:#4A5560;
+    --gen-soft:#E8EBEE;
+    --gen-grad:linear-gradient(135deg,#7C8B99 0%,#4A5560 55%,#262D33 100%);
+    --mat:#2D5FB8;
+    --mat-soft:#E3ECFA;
+    --mat-grad:linear-gradient(135deg,#6AA0F5 0%,#2D5FB8 55%,#17316B 100%);
+    --len:#7A4BB5;
+    --len-soft:#F0E8F9;
+    --len-grad:linear-gradient(135deg,#B58BEA 0%,#7A4BB5 55%,#3E2263 100%);
+    --cie:#2F8F4E;
+    --cie-soft:#E3F3E8;
+    --cie-grad:linear-gradient(135deg,#6FD08C 0%,#2F8F4E 55%,#154D28 100%);
+    --soc:#A0522D;
+    --soc-soft:#F6E9E1;
+    --soc-grad:linear-gradient(135deg,#D9946C 0%,#A0522D 55%,#582B14 100%);
+    --dep:#C2362F;
+    --dep-soft:#FAE4E2;
+    --dep-grad:linear-gradient(135deg,#F1827C 0%,#C2362F 55%,#7A1712 100%);
+    --g3:#B8860B; --g3-soft:#FBF3D9;
+    --g4:#2E8B57; --g4-soft:#E2F4EA;
+    --g5:#CD5C5C; --g5-soft:#FAE6E6;
+    --g6:#20A5A5; --g6-soft:#DFF4F4;
+    --g7:#D6336C; --g7-soft:#FBE4EC;
+    --g8:#5C7CFA; --g8-soft:#E6EBFE;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Segoe UI","Iowan Old Style",-apple-system,BlinkMacSystemFont,sans-serif;
+    line-height:1.45;
+    padding-bottom:60px;
+  }
+  h1,h2,h3{
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-weight:600;
+    margin:0 0 6px 0;
+    letter-spacing:0.2px;
+  }
+  h1{font-size:1.3rem;}
+  h2{font-size:1.1rem;}
+  h3{font-size:1rem;}
+  p{margin:0 0 10px 0;}
+  small{color:var(--ink-soft);}
+
+  header.top{
+    background:var(--ink);
+    color:var(--paper-alt);
+    padding:16px 16px 0 16px;
+  }
+  header.top .brand{
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  header.top .brand h1{color:#fff; margin:0;}
+  header.top .brand span{color:#B7BEB6; font-size:0.75rem;}
+
+  .role-tabs{display:flex; gap:2px;}
+  .role-tab{
+    flex:1;
+    text-align:center;
+    padding:10px 6px;
+    background:#33393B;
+    color:#C7CEC7;
+    border:none;
+    font-size:0.92rem;
+    cursor:pointer;
+    border-radius:6px 6px 0 0;
+  }
+  .role-tab.active{background:var(--paper); color:var(--ink); font-weight:600;}
+
+  nav.subnav{
+    display:flex;
+    overflow-x:auto;
+    gap:6px;
+    padding:10px 12px;
+    background:var(--paper-alt);
+    border-bottom:1px solid var(--line);
+  }
+  nav.subnav button{
+    flex:0 0 auto;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    padding:7px 12px;
+    border-radius:16px;
+    font-size:0.85rem;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  nav.subnav button.active{
+    background:var(--ink);
+    color:#fff;
+    border-color:var(--ink);
+  }
+
+  main{padding:14px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-left:4px solid var(--ink-soft);
+    border-radius:var(--radius);
+    padding:14px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .card.tec{border-left-color:var(--tec);}
+  .card.art{border-left-color:var(--art);}
+  .card.gen{border-left-color:var(--gen);} .card.mat{border-left-color:var(--mat);} .card.len{border-left-color:var(--len);}
+  .card.cie{border-left-color:var(--cie);} .card.soc{border-left-color:var(--soc);} .card.dep{border-left-color:var(--dep);}
+
+  .subject-banner{
+    margin:-14px -14px 12px -14px;
+    padding:12px 14px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:0.3px;
+    transition:background 0.2s ease;
+  }
+  .subject-banner.tec{background:var(--tec-grad);}
+  .subject-banner.art{background:var(--art-grad);}
+  .subject-banner.gen{background:var(--gen-grad);} .subject-banner.mat{background:var(--mat-grad);} .subject-banner.len{background:var(--len-grad);}
+  .subject-banner.cie{background:var(--cie-grad);} .subject-banner.soc{background:var(--soc-grad);} .subject-banner.dep{background:var(--dep-grad);}
+  .subject-banner .emoji{font-size:1.15rem;}
+
+  .file-attach-box{
+    border:1px dashed var(--line);
+    border-radius:4px;
+    padding:10px;
+    margin-top:6px;
+    background:var(--paper-alt);
+  }
+  .file-attach-box .file-name{
+    font-size:0.85rem;
+    color:var(--ink);
+    word-break:break-all;
+  }
+  .file-attach-box .file-name.empty{color:var(--ink-soft); font-style:italic;}
+  a.file-download{
+    display:inline-block;
+    background:#fff;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    padding:7px 12px;
+    border-radius:4px;
+    font-size:0.85rem;
+    text-decoration:none;
+    margin:6px 6px 0 0;
+  }
+  a.file-download:before{content:"⬇ ";}
+
+  .tag.g3{background:var(--g3-soft); color:var(--g3);}
+  .tag.g4{background:var(--g4-soft); color:var(--g4);}
+  .tag.g5{background:var(--g5-soft); color:var(--g5);}
+  .tag.g6{background:var(--g6-soft); color:var(--g6);}
+  .tag.g7{background:var(--g7-soft); color:var(--g7);}
+  .tag.g8{background:var(--g8-soft); color:var(--g8);}
+  .tag.g9{background:var(--g9-soft); color:var(--g9);}
+  .tag.g10{background:var(--g10-soft); color:var(--g10);}
+  .tag.g11{background:var(--g11-soft); color:var(--g11);}
+
+  .grade-filter{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;}
+  .grade-filter button{
+    background:#fff; border:1px solid var(--line); color:var(--ink-soft);
+    padding:6px 12px; border-radius:16px; font-size:0.82rem; cursor:pointer;
+  }
+  .grade-filter button.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  label{
+    display:block;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    margin:10px 0 4px 0;
+  }
+  label:first-child{margin-top:0;}
+  input[type=text], input[type=date], input[type=number], input[type=email], input[type=password], textarea, select{
+    width:100%;
+    padding:9px 10px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-size:0.95rem;
+    font-family:inherit;
+    background:var(--paper-alt);
+    color:var(--ink);
+  }
+  textarea{min-height:80px; resize:vertical;}
+  input:focus, textarea:focus, select:focus, button:focus{
+    outline:2px solid var(--tec);
+    outline-offset:1px;
+  }
+
+  .area-pick{display:flex; flex-wrap:wrap; gap:8px;}
+  .area-pick label{
+    flex:1 1 130px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:9px;
+    margin:0;
+    cursor:pointer;
+    font-size:0.88rem;
+    color:var(--ink);
+  }
+  .area-pick input{width:auto;}
+  .area-pick label.tec-l{border-left:4px solid var(--tec);}
+  .area-pick label.art-l{border-left:4px solid var(--art);}
+  .area-pick label.gen-l{border-left:4px solid var(--gen);} .area-pick label.mat-l{border-left:4px solid var(--mat);} .area-pick label.len-l{border-left:4px solid var(--len);}
+  .area-pick label.cie-l{border-left:4px solid var(--cie);} .area-pick label.soc-l{border-left:4px solid var(--soc);} .area-pick label.dep-l{border-left:4px solid var(--dep);}
+  .my-subjects{padding:8px 14px; background:var(--paper-alt); border-bottom:1px solid var(--line); font-size:0.8rem; color:var(--ink-soft);}
+  .my-subjects b{color:var(--ink);}
+
+  .criteria-row{display:flex; gap:6px; margin-bottom:6px;}
+  .criteria-row input:first-child{flex:3;}
+  .criteria-row input:last-child{flex:1;}
+  .criteria-row button{flex:0 0 auto;}
+
+  button.btn{
+    background:var(--ink);
+    color:#fff;
+    border:none;
+    padding:10px 16px;
+    border-radius:4px;
+    font-size:0.92rem;
+    cursor:pointer;
+    margin-top:10px;
+    margin-right:6px;
+  }
+  button.btn.secondary{background:#fff; color:var(--ink); border:1px solid var(--ink);}
+  button.btn.tec{background:var(--tec);}
+  button.btn.art{background:var(--art);}
+  button.btn.small{padding:6px 10px; font-size:0.8rem; margin-top:4px;}
+  button.btn.wa{background:#3E7C4A;}
+  button.btn:disabled{opacity:0.45; cursor:not-allowed;}
+  button.link-btn{
+    background:none; border:none; color:var(--tec); text-decoration:underline;
+    cursor:pointer; padding:0; font-size:0.85rem;
+  }
+
+  .tag{
+    display:inline-block;
+    font-size:0.72rem;
+    padding:2px 8px;
+    border-radius:10px;
+    margin-right:6px;
+  }
+  .tag.tec{background:var(--tec-soft); color:var(--tec);}
+  .tag.art{background:var(--art-soft); color:var(--art);}
+  .tag.gen{background:var(--gen-soft); color:var(--gen);} .tag.mat{background:var(--mat-soft); color:var(--mat);} .tag.len{background:var(--len-soft); color:var(--len);}
+  .tag.cie{background:var(--cie-soft); color:var(--cie);} .tag.soc{background:var(--soc-soft); color:var(--soc);} .tag.dep{background:var(--dep-soft); color:var(--dep);}
+  .tag.ok{background:var(--ok-soft); color:var(--ok);}
+  .tag.pending{background:var(--alert-soft); color:var(--alert);}
+
+  .empty{
+    text-align:center;
+    padding:30px 16px;
+    color:var(--ink-soft);
+    border:1px dashed var(--line);
+    border-radius:var(--radius);
+  }
+
+  .share-box{
+    background:var(--paper-alt);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:12px;
+    margin-top:8px;
+  }
+  .code-out{
+    width:100%;
+    min-height:70px;
+    font-family:monospace;
+    font-size:0.75rem;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:8px;
+    word-break:break-all;
+  }
+  .hint{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    background:var(--paper-alt);
+    border-left:3px solid var(--tec);
+    padding:8px 10px;
+    border-radius:4px;
+    margin:10px 0;
+  }
+  .hint.warn{border-left-color:var(--alert);}
+  img.preview{max-width:100%; border-radius:4px; margin-top:8px; border:1px solid var(--line);}
+
+  .row{display:flex; justify-content:space-between; align-items:center; gap:8px;}
+  .toolbar{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;}
+
+  table.grades{width:100%; border-collapse:collapse; font-size:0.85rem;}
+  table.grades th, table.grades td{border-bottom:1px solid var(--line); text-align:left; padding:6px 4px;}
+
+  footer.appfoot{
+    text-align:center;
+    padding:14px;
+    font-size:0.72rem;
+    color:var(--ink-soft);
+  }
+
+  .login-wrap{padding:30px 16px; max-width:360px; margin:0 auto;}
+  .login-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+  .error-msg{color:var(--alert); font-size:0.85rem; margin-top:8px;}
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--ink-soft);
+    padding:4px 0;
+  }
+  .dot{width:8px; height:8px; border-radius:50%; background:var(--ink-soft); display:inline-block;}
+  .dot.on{background:var(--ok);}
+  .dot.off{background:var(--alert);}
+  .teacher-bar{display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:var(--paper-alt); border-bottom:1px solid var(--line); font-size:0.82rem;}
+  .spinner-wrap{text-align:center; padding:40px 16px; color:var(--ink-soft);}
+  .stu-head{margin:18px 0 8px 0; padding-bottom:4px; border-bottom:2px solid var(--ink); display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
+  .stu-head h2{margin:0;}
+  .ans-text{white-space:pre-wrap; margin:8px 0 10px 0;}
+  #toast{position:fixed; bottom:18px; left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; padding:10px 16px; border-radius:20px; font-size:0.85rem; display:none; z-index:99; max-width:90%; text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><h1>Taller Digital</h1><span>tareas de tecnología y artística</span></div>
+  <div class="role-tabs">
+    <button class="role-tab active" data-role="docente">Soy docente</button>
+    <button class="role-tab" data-role="estudiante">Soy estudiante</button>
+  </div>
+</header>
+
+<div id="conn-status" class="status-badge" style="padding:8px 14px;"><span class="dot off" id="conn-dot"></span><span id="conn-text">Conectando...</span></div>
+
+<!-- DOCENTE -->
+<div id="view-docente" class="role-view">
+
+  <!-- Login gate -->
+  <div id="teacher-login-gate" class="login-wrap">
+    <div class="login-card">
+      <h2>Acceso docente</h2>
+      <p><small>Elige tu nombre e ingresa tu contraseña personal.</small></p>
+      <label>Docente</label>
+      <select id="login-user"><option value="">Cargando docentes...</option></select>
+      <label>Contraseña</label>
+      <input type="password" id="login-password" placeholder="Tu contraseña" autocomplete="current-password">
+      <button class="btn tec" id="login-btn" style="width:100%;">Iniciar sesión</button>
+      <button class="link-btn" id="forgot-pass-btn" style="margin-top:10px;">Olvidé mi contraseña</button>
+      <div class="error-msg" id="login-error"></div>
+    </div>
+  </div>
+
+  <div id="teacher-app" style="display:none;">
+    <div class="teacher-bar">
+      <span id="teacher-email-label"></span>
+      <span><button class="link-btn" id="change-pass-btn">Cambiar contraseña</button> &nbsp;·&nbsp; <button class="link-btn" id="logout-btn">Cerrar sesión</button></span>
+    </div>
+    <div class="my-subjects" id="my-subjects"></div>
+    <nav class="subnav">
+      <button class="sub active" data-panel="d-crear">Crear tarea</button>
+      <button class="sub" data-panel="d-mistareas">Mis tareas</button>
+      <button class="sub" data-panel="d-entregas">Entregas y calificación</button>
+      <button class="sub" data-panel="d-resumen">Resumen</button>
+    </nav>
+    <main>
+
+      <section id="d-crear" class="panel active">
+        <div class="hint">Comparte el enlace de este sitio con tus estudiantes (botón abajo). En cuanto crees una tarea, aparecerá automáticamente en su pantalla — no necesitas enviarles nada más.</div>
+        <button class="btn secondary small" id="copy-link-btn">Copiar enlace para estudiantes</button>
+        <div class="card">
+          <div class="subject-banner tec" id="t-banner"><span class="emoji">⚙️</span> <span id="t-banner-label">Materia</span></div>
+          <h2>Nueva tarea</h2>
+          <label>Título de la tarea</label>
+          <input type="text" id="t-title" placeholder="Ej: Circuito con LED y sensor">
+          <label>Área</label>
+          <div class="area-pick" id="t-area-pick"></div>
+          <label>Grado</label>
+          <select id="t-grade"></select>
+          <label>Instrucciones para el estudiante</label>
+          <textarea id="t-desc" placeholder="Explica qué debe hacer el estudiante y cómo debe entregarlo"></textarea>
+          <label>Fecha de entrega</label>
+          <input type="date" id="t-due">
+          <label>Archivo para el estudiante (opcional)</label>
+          <div class="file-attach-box">
+            <button type="button" class="btn secondary small" id="t-file-btn">Adjuntar archivo</button>
+            <input type="file" id="t-file-input" style="display:none">
+            <button type="button" class="btn secondary small" id="t-file-remove" style="display:none;">Quitar archivo</button>
+            <div class="file-name empty" id="t-file-name">Sin archivo adjunto</div>
+          </div>
+          <label>Criterios de evaluación (opcional)</label>
+          <div id="criteria-list"></div>
+          <button type="button" class="btn secondary small" id="add-criteria">+ Agregar criterio</button>
+          <div>
+            <button class="btn tec" id="create-task">Crear tarea</button>
+          </div>
+        </div>
+        <div id="new-task-msg"></div>
+      </section>
+
+      <section id="d-mistareas" class="panel">
+        <h2>Mis tareas</h2>
+        <div class="grade-filter" id="d-grade-filter">
+          <button class="active" data-grade="todos">Todos</button>
+        </div>
+        <div id="tasks-list"></div>
+      </section>
+
+      <section id="d-entregas" class="panel">
+        <h2>Entregas y calificación</h2>
+        <div class="hint">Las entregas se organizan por <b>nombre del estudiante</b>, sin importar el grado ni la tarea. Elige un estudiante (o “Todos”, en orden alfabético), califica y descarga lo que estás viendo.</div>
+        <label>Buscar estudiante por nombre</label>
+        <input type="text" id="stu-search" placeholder="Escribe nombre o apellido">
+        <label>Estudiante</label>
+        <select id="stu-select"></select>
+        <label>Mostrar</label>
+        <select id="stu-status">
+          <option value="todas">Todas las entregas</option>
+          <option value="pendientes">Solo sin calificar</option>
+          <option value="calificadas">Solo calificadas</option>
+        </select>
+        <div class="toolbar" style="margin-top:10px;">
+          <button class="btn secondary small" id="dl-csv">⬇ Descargar en Excel (CSV)</button>
+          <button class="btn secondary small" id="dl-report">⬇ Descargar informe (imprimir / PDF)</button>
+        </div>
+        <small>La descarga corresponde a lo que ves: un solo estudiante o todos. El informe incluye respuestas, fotos y archivos adjuntos para revisarlos sin conexión.</small>
+        <div id="submissions-list"></div>
+      </section>
+
+      <section id="d-resumen" class="panel">
+        <h2>Resumen de calificaciones</h2>
+        <div id="grades-summary"></div>
+        <button class="btn secondary small" id="export-csv">⬇ Descargar resumen (Excel/CSV)</button>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- ESTUDIANTE -->
+<div id="view-estudiante" class="role-view" style="display:none;">
+  <nav class="subnav">
+    <button class="sub active" data-panel="e-recibir">Tareas</button>
+    <button class="sub" data-panel="e-entregar">Mi entrega</button>
+    <button class="sub" data-panel="e-notas">Mis calificaciones</button>
+  </nav>
+  <main>
+
+    <section id="e-recibir" class="panel active">
+      <h2>Tareas asignadas</h2>
+      <label>Tu grado</label>
+      <select id="s-grade-filter">
+        <option value="todos">Todos los grados</option>
+        <option value="3">3°</option><option value="4">4°</option><option value="5">5°</option>
+        <option value="6">6°</option><option value="7">7°</option><option value="8">8°</option>
+        <option value="9">9°</option>
+        <option value="10">10°</option>
+        <option value="11">11°</option>
+      </select>
+      <div id="s-tasks-list"></div>
+    </section>
+
+    <section id="e-entregar" class="panel">
+      <h2>Entregar una tarea</h2>
+      <label>Elige la tarea a entregar</label>
+      <select id="s-task-select"></select>
+      <div id="s-task-detail"></div>
+      <div id="s-submit-form" style="display:none;">
+        <label>Tu nombre completo</label>
+        <input type="text" id="s-name" placeholder="Nombre y apellido">
+        <label>Tu respuesta / desarrollo de la tarea</label>
+        <textarea id="s-answer" placeholder="Escribe aquí tu trabajo, o pega el enlace de un video/documento si aplica"></textarea>
+        <label>Foto de tu trabajo (opcional, útil para tareas artísticas)</label>
+        <input type="file" id="s-image" accept="image/*">
+        <div id="s-image-preview"></div>
+        <label>Archivo de tu trabajo terminado (opcional)</label>
+        <div class="file-attach-box">
+          <button type="button" class="btn secondary small" id="s-file-btn">Adjuntar archivo</button>
+          <input type="file" id="s-file-input" style="display:none">
+          <button type="button" class="btn secondary small" id="s-file-remove" style="display:none;">Quitar archivo</button>
+          <div class="file-name empty" id="s-file-name">Sin archivo adjunto</div>
+        </div>
+        <button class="btn tec" id="s-generate-submission">Enviar mi entrega</button>
+      </div>
+      <div id="submission-msg"></div>
+    </section>
+
+    <section id="e-notas" class="panel">
+      <h2>Mis calificaciones</h2>
+      <div class="hint">Escribe tu nombre exactamente como lo usaste al entregar, para ver tus notas.</div>
+      <label>Tu nombre completo</label>
+      <input type="text" id="g-name-filter" placeholder="Nombre y apellido">
+      <button class="btn tec small" id="g-search-btn">Buscar mis calificaciones</button>
+      <div id="grades-list"></div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<footer class="appfoot">Los datos se guardan en la nube (Firebase) en tiempo real — ya no dependen de este dispositivo ni del navegador.</footer>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============================================================
+  // 1) PEGA AQUÍ LA CONFIGURACIÓN DE TU PROYECTO FIREBASE
+  //    (la obtienes en la Consola de Firebase > Configuración del proyecto > tus apps > SDK setup)
+  // ============================================================
+  var firebaseConfig = {
+    apiKey: "AIzaSyDDWJvRbKO7nUelgq5TvKRfWtPYW5SPENM",
+    authDomain: "taller-digital-1784a-9c1cf.firebaseapp.com",
+    projectId: "taller-digital-1784a-9c1cf",
+    storageBucket: "taller-digital-1784a-9c1cf.firebasestorage.app",
+    messagingSenderId: "808428915853",
+    appId: "1:808428915853:web:fafbde46d7807ecc7166c4"
+  };
+
+  // ============================================================
+  // 2) CUENTAS Y PERMISOS DE DOCENTES
+  //    Las contraseñas y las materias asignadas NO están en este archivo:
+  //    las contraseñas las guarda Firebase Authentication (cifradas) y las
+  //    asignaciones viven en Firestore (colección "teachers"), protegidas por
+  //    firestore.rules. Se configuran con configuracion/configurar-docentes.js
+  // ============================================================
+  // Catálogo SOLO para mostrar nombre, ícono y color de cada materia.
+  var SUBJECTS = {
+    tecnologia:{label:"Tecnología", emoji:"⚙️", cls:"tec"},
+    artistica:{label:"Artística", emoji:"🎨", cls:"art"},
+    tnp:{label:"TNP", emoji:"📘", cls:"gen"},
+    educacion_fisica:{label:"Educación Física", emoji:"🏃", cls:"dep"},
+    algebra:{label:"Álgebra", emoji:"➗", cls:"mat"},
+    trigonometria:{label:"Trigonometría", emoji:"📐", cls:"mat"},
+    calculo:{label:"Cálculo", emoji:"∫", cls:"mat"},
+    matematicas:{label:"Matemáticas (P. Matemático)", emoji:"🔢", cls:"mat"},
+    territorio_sociedad:{label:"Territorio Sociedad", emoji:"🌎", cls:"soc"},
+    biologia:{label:"Biología", emoji:"🧬", cls:"cie"},
+    quimica:{label:"Química", emoji:"⚗️", cls:"cie"},
+    ingles:{label:"Inglés", emoji:"🔤", cls:"len"},
+    filosofia:{label:"Filosofía", emoji:"💭", cls:"soc"},
+    lenguaje_comunicacion:{label:"Lenguaje Comunicación", emoji:"📖", cls:"len"},
+    nasa_yuwe:{label:"Nasa Yuwe", emoji:"🗣️", cls:"len"}
+  };
+
+  // Los archivos se guardan directamente dentro de la base de datos (sin Firebase Storage,
+  // para no requerir tarjeta de crédito), así que deben ser pequeños.
+  var MAX_FILE_SIZE = 700 * 1024; // 700KB por archivo
+
+  var app = firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  var state = { tasks: [], submissions: [], grades: [] };
+  var pendingImage = null; // {dataUrl}
+  var pendingTaskFile = null; // {name, mime, dataUrl}
+  var pendingStudentFile = null; // {name, mime, dataUrl}
+  var isTeacher = false;
+  var submissionsUnsubs = [];     // un oyente por cada materia+grado asignado
+  var subsByKey = {};
+  var me = null;                  // {uid, name, permisos:["tecnologia_9", ...]}
+  var directory = [];             // [{id, name, email}] (solo nombres y correos internos, sin secretos)
+  var sessionToken = 0;
+
+  function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+  function esc(s){ var d = document.createElement("div"); d.textContent = s == null ? "" : s; return d.innerHTML; }
+  function slug(s){ return (s||"tarea").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"").slice(0,40) || "tarea"; }
+  function prettyId(a){ return String(a||"").replace(/_/g, " ").replace(/^./, function(c){ return c.toUpperCase(); }); }
+  function areaLabel(a){ return SUBJECTS[a] ? SUBJECTS[a].label : (a ? prettyId(a) : "Materia"); }
+  function areaCls(a){ return SUBJECTS[a] ? SUBJECTS[a].cls : "gen"; }
+  function areaEmoji(a){ return SUBJECTS[a] ? SUBJECTS[a].emoji : "📘"; }
+  function keyOf(area, grade){ return area + "_" + grade; }
+  function splitKey(k){ var i = k.lastIndexOf("_"); return { area: k.slice(0, i), grade: k.slice(i + 1) }; }
+  function hasPerm(area, grade){ return !!me && me.permisos.indexOf(keyOf(area, grade)) !== -1; }
+  function myAreas(){
+    var out = [];
+    (me ? me.permisos : []).forEach(function(k){ var a = splitKey(k).area; if(out.indexOf(a) === -1) out.push(a); });
+    return out;
+  }
+  function myGradesFor(area){
+    var out = [];
+    (me ? me.permisos : []).forEach(function(k){ var p = splitKey(k); if(p.area === area) out.push(p.grade); });
+    return out.sort(function(a, b){ return Number(a) - Number(b); });
+  }
+  function myAllGrades(){
+    var out = [];
+    (me ? me.permisos : []).forEach(function(k){ var g = splitKey(k).grade; if(out.indexOf(g) === -1) out.push(g); });
+    return out.sort(function(a, b){ return Number(a) - Number(b); });
+  }
+  function taskKey(t){ return t.key || (t.area && t.grade ? keyOf(t.area, t.grade) : ""); }
+  function gradeLabel(g){ return g ? g+"°" : "—"; }
+
+  function setConn(ok, text){
+    document.getElementById("conn-dot").className = "dot " + (ok ? "on" : "off");
+    document.getElementById("conn-text").textContent = text;
+  }
+
+  // ---------- role & tab switching ----------
+  document.querySelectorAll(".role-tab").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      document.querySelectorAll(".role-tab").forEach(function(b){ b.classList.remove("active"); });
+      btn.classList.add("active");
+      var role = btn.getAttribute("data-role");
+      document.getElementById("view-docente").style.display = role === "docente" ? "" : "none";
+      document.getElementById("view-estudiante").style.display = role === "estudiante" ? "" : "none";
+    });
+  });
+
+  document.querySelectorAll("nav.subnav").forEach(function(nav){
+    nav.querySelectorAll("button.sub").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        nav.querySelectorAll("button.sub").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        var panelId = btn.getAttribute("data-panel");
+        var container = nav.parentElement;
+        container.querySelectorAll(".panel").forEach(function(p){ p.classList.remove("active"); });
+        document.getElementById(panelId).classList.add("active");
+        refreshAll();
+      });
+    });
+  });
+
+  // ---------- AUTH ----------
+  var loginErr = document.getElementById("login-error");
+  function setLoginMsg(text, ok){ loginErr.style.color = ok ? "var(--ok)" : "var(--alert)"; loginErr.textContent = text || ""; }
+
+  // Lista de docentes (solo nombres): colección pública "directorio"
+  function loadDirectory(){
+    var sel = document.getElementById("login-user");
+    db.collection("directorio").get().then(function(snap){
+      directory = snap.docs.map(function(d){ var x = d.data(); x.id = d.id; return x; });
+      directory.sort(function(a, b){ return String(a.name).localeCompare(String(b.name), "es", {sensitivity:"base"}); });
+      sel.innerHTML = "";
+      var ph = document.createElement("option"); ph.value = ""; ph.textContent = directory.length ? "— Selecciona tu nombre —" : "— No hay docentes configurados —";
+      sel.appendChild(ph);
+      directory.forEach(function(t){ var o = document.createElement("option"); o.value = t.id; o.textContent = t.name; sel.appendChild(o); });
+    }).catch(function(){
+      sel.innerHTML = '<option value="">— No se pudo cargar la lista —</option>';
+      setLoginMsg("No se pudo cargar la lista de docentes. Revisa tu conexión o las reglas de Firestore.");
+    });
+  }
+  loadDirectory();
+
+  document.getElementById("login-btn").addEventListener("click", function(){
+    var id = document.getElementById("login-user").value;
+    var pass = document.getElementById("login-password").value;
+    setLoginMsg("");
+    if(!id || !pass){ setLoginMsg("Selecciona tu nombre y escribe tu contraseña."); return; }
+    var t = directory.filter(function(x){ return x.id === id; })[0];
+    if(!t){ setLoginMsg("No fue posible iniciar sesión: docente no válido."); return; }
+    var btn = document.getElementById("login-btn"); btn.disabled = true;
+    // La sesión vive solo en esta pestaña/ventana: al cerrarla, la sesión termina.
+    auth.setPersistence(firebase.auth.Auth.Persistence.SESSION).then(function(){
+      return auth.signInWithEmailAndPassword(t.email, pass);
+    }).catch(function(err){
+      setLoginMsg("No fue posible iniciar sesión: " + friendlyAuthError(err));
+    }).then(function(){ btn.disabled = false; });
+  });
+  document.getElementById("login-password").addEventListener("keydown", function(e){ if(e.key === "Enter") document.getElementById("login-btn").click(); });
+
+  document.getElementById("forgot-pass-btn").addEventListener("click", function(){
+    setLoginMsg("Las cuentas no usan correo real. Pide a la administración que restablezca tu contraseña; luego podrás cambiarla con «Cambiar contraseña».");
+  });
+
+  document.getElementById("logout-btn").addEventListener("click", function(){ auth.signOut(); });
+
+  document.getElementById("change-pass-btn").addEventListener("click", function(){
+    var user = auth.currentUser; if(!user) return;
+    var cur = prompt("Escribe tu contraseña actual:"); if(!cur) return;
+    var nw = prompt("Escribe tu nueva contraseña (mínimo 6 caracteres):"); if(!nw) return;
+    if(nw.length < 6){ alert("La nueva contraseña debe tener al menos 6 caracteres."); return; }
+    var cred = firebase.auth.EmailAuthProvider.credential(user.email, cur);
+    user.reauthenticateWithCredential(cred).then(function(){ return user.updatePassword(nw); })
+      .then(function(){ toast("Contraseña actualizada."); })
+      .catch(function(err){ alert("No se pudo cambiar la contraseña: " + friendlyAuthError(err)); });
+  });
+
+  function friendlyAuthError(err){
+    var code = err && err.code || "";
+    if(code.indexOf("wrong-password") !== -1 || code.indexOf("invalid-credential") !== -1 || code.indexOf("user-not-found") !== -1) return "usuario o contraseña incorrectos.";
+    if(code.indexOf("too-many-requests") !== -1) return "demasiados intentos, espera un momento.";
+    if(code.indexOf("weak-password") !== -1) return "la contraseña es muy débil (mínimo 6 caracteres).";
+    if(code.indexOf("network") !== -1) return "sin conexión a internet.";
+    return "intenta de nuevo.";
+  }
+
+  function clearTeacherSession(){
+    sessionToken++;
+    isTeacher = false; me = null;
+    submissionsUnsubs.forEach(function(u){ u(); }); submissionsUnsubs = [];
+    subsByKey = {}; state.submissions = []; drafts = {};
+    document.getElementById("teacher-login-gate").style.display = "";
+    document.getElementById("teacher-app").style.display = "none";
+    document.getElementById("login-password").value = "";
+    document.getElementById("login-user").value = "";
+    ["t-title","t-desc","t-due","stu-search"].forEach(function(id){ document.getElementById(id).value = ""; });
+    document.getElementById("criteria-list").innerHTML = "";
+    document.getElementById("new-task-msg").innerHTML = "";
+    document.getElementById("submissions-list").innerHTML = "";
+    document.getElementById("tasks-list").innerHTML = "";
+    document.getElementById("grades-summary").innerHTML = "";
+    pendingTaskFile = null;
+    // vuelve a la primera pestaña del panel docente
+    document.querySelectorAll("#teacher-app nav.subnav button.sub").forEach(function(b, i){ b.classList.toggle("active", i === 0); });
+    document.querySelectorAll("#teacher-app .panel").forEach(function(p, i){ p.classList.toggle("active", i === 0); });
+  }
+
+  auth.onAuthStateChanged(function(user){
+    if(user && !user.isAnonymous){
+      var token = ++sessionToken;
+      db.collection("teachers").doc(user.uid).get().then(function(doc){
+        if(token !== sessionToken) return;
+        var d = doc.exists ? doc.data() : null;
+        if(!d || !d.permisos || !d.permisos.length){
+          auth.signOut().then(function(){ setLoginMsg("Esta cuenta no tiene permisos de docente."); });
+          return;
+        }
+        me = { uid: user.uid, name: d.name || user.email, permisos: d.permisos.slice() };
+        isTeacher = true;
+        setLoginMsg("");
+        document.getElementById("teacher-login-gate").style.display = "none";
+        document.getElementById("teacher-app").style.display = "";
+        setupTeacherUI();
+        listenSubmissions();
+        refreshAll();
+      }).catch(function(){
+        if(token !== sessionToken) return;
+        auth.signOut().then(function(){ setLoginMsg("No fue posible iniciar sesión: no se pudieron verificar tus permisos."); });
+      });
+    } else {
+      clearTeacherSession();
+      refreshAll();
+    }
+  });
+
+  // Prepara el panel con SOLO las materias y grados de este docente
+  function setupTeacherUI(){
+    document.getElementById("teacher-email-label").textContent = "Docente: " + me.name;
+    var lines = myAreas().map(function(a){
+      return "<b>" + esc(areaEmoji(a) + " " + areaLabel(a)) + "</b> (" + myGradesFor(a).map(function(g){ return esc(g) + "°"; }).join(", ") + ")";
+    });
+    document.getElementById("my-subjects").innerHTML = "Mis materias: " + lines.join(" · ");
+
+    var pick = document.getElementById("t-area-pick");
+    pick.innerHTML = "";
+    myAreas().forEach(function(a, i){
+      var l = document.createElement("label");
+      l.className = areaCls(a) + "-l";
+      l.innerHTML = '<input type="radio" name="t-area" value="' + escAttr(a) + '"' + (i === 0 ? " checked" : "") + '> ' + esc(areaLabel(a));
+      l.querySelector("input").addEventListener("change", onAreaChange);
+      pick.appendChild(l);
+    });
+    onAreaChange();
+
+    var gf = document.getElementById("d-grade-filter");
+    gf.innerHTML = '<button class="active" data-grade="todos">Todos</button>';
+    myAllGrades().forEach(function(g){ gf.insertAdjacentHTML("beforeend", '<button data-grade="' + escAttr(g) + '">' + esc(g) + '°</button>'); });
+    teacherGradeFilter = "todos";
+    gf.querySelectorAll("button").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        gf.querySelectorAll("button").forEach(function(b){ b.classList.remove("active"); });
+        btn.classList.add("active");
+        teacherGradeFilter = btn.getAttribute("data-grade");
+        renderTasksList();
+      });
+    });
+  }
+
+  function onAreaChange(){
+    var checked = document.querySelector('input[name="t-area"]:checked');
+    var area = checked ? checked.value : "";
+    var banner = document.getElementById("t-banner");
+    banner.className = "subject-banner " + areaCls(area);
+    banner.querySelector(".emoji").textContent = areaEmoji(area);
+    document.getElementById("t-banner-label").textContent = area ? areaLabel(area) : "Materia";
+    var sel = document.getElementById("t-grade");
+    sel.innerHTML = "";
+    myGradesFor(area).forEach(function(g){ var o = document.createElement("option"); o.value = g; o.textContent = g + "°"; sel.appendChild(o); });
+  }
+
+  // ---------- copy link ----------
+  document.getElementById("copy-link-btn").addEventListener("click", function(){
+    var url = window.location.href.split("#")[0];
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(url).then(function(){ alert("Enlace copiado: " + url); });
+    } else {
+      prompt("Copia este enlace:", url);
+    }
+  });
+
+  // ---------- live data: tasks (public) & grades (public) ----------
+  setConn(false, "Conectando...");
+  db.collection("tasks").orderBy("createdAt", "desc").onSnapshot(function(snap){
+    state.tasks = snap.docs.map(function(d){ var t = d.data(); t.id = d.id; return t; });
+    setConn(true, "Conectado");
+    refreshAll();
+  }, function(err){
+    setConn(false, "Sin conexión: " + err.message);
+  });
+
+  db.collection("grades").onSnapshot(function(snap){
+    state.grades = snap.docs.map(function(d){ var g = d.data(); g.id = d.id; return g; });
+    refreshAll();
+  });
+
+  // Un oyente por cada materia+grado asignado: Firestore solo entrega lo que las reglas permiten.
+  function listenSubmissions(){
+    submissionsUnsubs.forEach(function(u){ u(); }); submissionsUnsubs = [];
+    subsByKey = {};
+    var token = sessionToken;
+    me.permisos.forEach(function(k){
+      var unsub = db.collection("submissions").where("taskKey", "==", k).onSnapshot(function(snap){
+        if(token !== sessionToken) return;
+        subsByKey[k] = snap.docs.map(function(d){ var x = d.data(); x.id = d.id; return x; });
+        var all = [];
+        Object.keys(subsByKey).forEach(function(kk){ all = all.concat(subsByKey[kk]); });
+        all.sort(function(a, b){
+          var ta = a.submittedAt && a.submittedAt.toMillis ? a.submittedAt.toMillis() : Date.now();
+          var tb = b.submittedAt && b.submittedAt.toMillis ? b.submittedAt.toMillis() : Date.now();
+          return tb - ta;
+        });
+        state.submissions = all;
+        refreshAll();
+      }, function(err){ console.warn("Sin acceso a", k, err.message); });
+      submissionsUnsubs.push(unsub);
+    });
+  }
+
+  // ---------- file helpers ----------
+  // Los archivos se guardan como texto (base64) dentro del propio documento de Firestore,
+  // por eso deben ser pequeños (ver MAX_FILE_SIZE).
+  function fileAttachHtml(fileObj, label){
+    if(!fileObj || !fileObj.dataUrl) return "";
+    return '<a class="file-download" download="'+esc(fileObj.name)+'" href="'+fileObj.dataUrl+'">'+esc(label||fileObj.name)+'</a>';
+  }
+
+  function readFileAsBase64(file, onDone, onError){
+    if(file.size > MAX_FILE_SIZE){
+      onError({message:"El archivo es muy pesado (máx. 700KB). Elige uno más liviano o comprímelo."});
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(){
+      onDone({ name:file.name, mime:file.type || "application/octet-stream", dataUrl:reader.result });
+    };
+    reader.onerror = function(){ onError({message:"No se pudo leer el archivo."}); };
+    reader.readAsDataURL(file);
+  }
+
+  document.getElementById("t-file-btn").addEventListener("click", function(){ document.getElementById("t-file-input").click(); });
+  document.getElementById("t-file-input").addEventListener("change", function(e){
+    var file = e.target.files[0]; if(!file) return;
+    readFileAsBase64(file, function(att){
+      pendingTaskFile = att;
+      document.getElementById("t-file-name").textContent = att.name;
+      document.getElementById("t-file-name").classList.remove("empty");
+      document.getElementById("t-file-remove").style.display = "";
+    }, function(err){
+      alert(err.message);
+      e.target.value = "";
+    });
+  });
+  document.getElementById("t-file-remove").addEventListener("click", function(){
+    pendingTaskFile = null;
+    document.getElementById("t-file-input").value = "";
+    document.getElementById("t-file-name").textContent = "Sin archivo adjunto";
+    document.getElementById("t-file-name").classList.add("empty");
+    document.getElementById("t-file-remove").style.display = "none";
+  });
+
+  // ---------- criteria rows ----------
+  function addCriteriaRow(name, points){
+    var wrap = document.getElementById("criteria-list");
+    var row = document.createElement("div");
+    row.className = "criteria-row";
+    row.innerHTML = '<input type="text" placeholder="Criterio (ej: Creatividad)" class="crit-name" value="'+(name||"")+'">'+
+      '<input type="number" placeholder="Pts" class="crit-pts" value="'+(points||"")+'">'+
+      '<button type="button" class="btn secondary small crit-remove">✕</button>';
+    row.querySelector(".crit-remove").addEventListener("click", function(){ row.remove(); });
+    wrap.appendChild(row);
+  }
+  document.getElementById("add-criteria").addEventListener("click", function(){ addCriteriaRow(); });
+
+  // ---------- create task ----------
+  document.getElementById("create-task").addEventListener("click", function(){
+    if(!isTeacher){ alert("Debes iniciar sesión como docente."); return; }
+    var title = document.getElementById("t-title").value.trim();
+    if(!title){ alert("Escribe un título para la tarea."); return; }
+    var areaEl = document.querySelector('input[name="t-area"]:checked');
+    var area = areaEl ? areaEl.value : "";
+    var grade = document.getElementById("t-grade").value.trim();
+    if(!area || !grade || !hasPerm(area, grade)){ alert("No tienes asignada esa materia y grado."); return; }
+    var desc = document.getElementById("t-desc").value.trim();
+    var due = document.getElementById("t-due").value;
+    var criteria = [];
+    document.querySelectorAll("#criteria-list .criteria-row").forEach(function(row){
+      var n = row.querySelector(".crit-name").value.trim();
+      var p = row.querySelector(".crit-pts").value.trim();
+      if(n) criteria.push({item:n, points:p || ""});
+    });
+
+    var btn = document.getElementById("create-task");
+    btn.disabled = true; btn.textContent = "Creando...";
+
+    function saveTask(fileInfo){
+      var taskData = {
+        title:title, area:area, grade:grade, key:keyOf(area, grade), description:desc, dueDate:due,
+        criteria:criteria, file: fileInfo || null,
+        teacherEmail: auth.currentUser.email, teacherUid: auth.currentUser.uid, teacherName: me.name,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      db.collection("tasks").add(taskData).then(function(){
+        document.getElementById("t-title").value = "";
+        document.getElementById("t-desc").value = "";
+        document.getElementById("t-due").value = "";
+        document.getElementById("criteria-list").innerHTML = "";
+        document.getElementById("t-file-remove").click();
+        document.getElementById("new-task-msg").innerHTML = '<div class="hint">Tarea creada y visible para los estudiantes.</div>';
+        btn.disabled = false; btn.textContent = "Crear tarea";
+        onAreaChange();
+      }).catch(function(err){
+        alert("No se pudo crear la tarea: " + err.message);
+        btn.disabled = false; btn.textContent = "Crear tarea";
+      });
+    }
+
+    saveTask(pendingTaskFile || null);
+  });
+
+  // ---------- render tasks list (docente) ----------
+  var teacherGradeFilter = "todos";
+
+  function renderTasksList(){
+    var wrap = document.getElementById("tasks-list");
+    var list = state.tasks.filter(function(t){ return isTeacher && me && me.permisos.indexOf(taskKey(t)) !== -1 && (teacherGradeFilter === "todos" || t.grade === teacherGradeFilter); });
+    if(list.length === 0){ wrap.innerHTML = '<div class="empty">Aún no hay tareas de tus materias para este filtro.</div>'; return; }
+    wrap.innerHTML = "";
+    list.forEach(function(task){
+      var count = state.submissions.filter(function(s){ return s.taskId === task.id; }).length;
+      var div = document.createElement("div");
+      div.className = "card " + areaCls(task.area);
+      div.innerHTML = '<div class="subject-banner '+areaCls(task.area)+'"><span class="emoji">'+areaEmoji(task.area)+'</span> '+areaLabel(task.area)+'</div>'+
+        (task.grade ? '<span class="tag g'+esc(task.grade)+'">Grado '+gradeLabel(task.grade)+'</span>' : '')+
+        '<h3>'+esc(task.title)+'</h3>'+
+        (task.dueDate ? '<small>Entrega: '+esc(task.dueDate)+'</small><br>' : '')+
+        '<p>'+esc(task.description)+'</p>'+
+        fileAttachHtml(task.file, "Descargar archivo de la tarea")+
+        '<br><small>'+count+' entrega(s) recibida(s)</small><br>'+
+        '<button class="btn secondary small" data-act="delete">Eliminar tarea</button>';
+      div.querySelector('[data-act="delete"]').addEventListener("click", function(){
+        if(confirm('¿Eliminar la tarea "'+task.title+'"? Esta acción no se puede deshacer.')){
+          db.collection("tasks").doc(task.id).delete();
+        }
+      });
+      wrap.appendChild(div);
+    });
+  }
+
+  // ---------- task select dropdowns ----------
+  function fillTaskSelect(selectEl, list){
+    var prev = selectEl.value;
+    selectEl.innerHTML = "";
+    if(list.length === 0){
+      var opt = document.createElement("option");
+      opt.textContent = "— no hay tareas —"; selectEl.appendChild(opt);
+      return;
+    }
+    list.forEach(function(t){
+      var opt = document.createElement("option");
+      opt.value = t.id; opt.textContent = t.title + " ("+areaLabel(t.area)+(t.grade ? " · Grado "+gradeLabel(t.grade) : "")+")";
+      selectEl.appendChild(opt);
+    });
+    if(list.some(function(t){return t.id===prev;})) selectEl.value = prev;
+  }
+
+  // ---------- utilidades: nombres, avisos y descargas ----------
+  function escAttr(s){ return esc(s).replace(/"/g, "&quot;"); }
+
+  // Compara nombres sin importar mayúsculas, tildes ni espacios de más
+  function normName(s){
+    return (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim();
+  }
+
+  var toastTimer = null;
+  function toast(msg){
+    var t = document.getElementById("toast");
+    t.textContent = msg; t.style.display = "block";
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.style.display = "none"; }, 2500);
+  }
+
+  function downloadFile(content, filename, mime){
+    var blob = new Blob([content], {type: mime});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+
+  // CSV con ";" y BOM: se abre directo en Excel en español, con tildes y eñes bien
+  function csvCell(v){ return '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"'; }
+  function downloadCSV(rows, filename){
+    var csv = rows.map(function(r){ return r.map(csvCell).join(";"); }).join("\r\n");
+    downloadFile("\ufeff" + csv, filename, "text/csv;charset=utf-8;");
+  }
+  function todayStr(){ return new Date().toISOString().slice(0, 10); }
+
+  // ---------- datos derivados de cada entrega ----------
+  function taskOf(sub){ return state.tasks.find(function(t){ return t.id === sub.taskId; }) || null; }
+  function gradeOfSub(sub){ var t = taskOf(sub); return sub.taskGrade || (t && t.grade) || ""; }
+  function areaOfSub(sub){ var t = taskOf(sub); return sub.taskArea || (t && t.area) || ""; }
+  function titleOfSub(sub){ var t = taskOf(sub); return (t && t.title) || sub.taskTitle || "(tarea eliminada)"; }
+  function gradeRecord(sub){ return state.grades.find(function(g){ return g.submissionId === sub.id; }) || null; }
+  function dateOfSub(sub){ return sub.submittedAt && sub.submittedAt.toDate ? sub.submittedAt.toDate().toLocaleString("es-CO") : ""; }
+
+  // Agrupa TODAS las entregas por nombre de estudiante (A–Z), sin importar el grado
+  function studentGroups(){
+    var map = {};
+    state.submissions.forEach(function(s){
+      var key = normName(s.studentName) || "(sin nombre)";
+      if(!map[key]) map[key] = { key: key, name: (s.studentName || "(sin nombre)").trim(), subs: [] };
+      map[key].subs.push(s);
+    });
+    var arr = Object.keys(map).map(function(k){ return map[k]; });
+    arr.sort(function(a, b){ return a.name.localeCompare(b.name, "es", {sensitivity: "base"}); });
+    return arr;
+  }
+
+  function sortedSubs(subs){
+    return subs.slice().sort(function(a, b){
+      var n = normName(a.studentName).localeCompare(normName(b.studentName), "es");
+      return n !== 0 ? n : titleOfSub(a).localeCompare(titleOfSub(b), "es", {sensitivity: "base"});
+    });
+  }
+
+  // ---------- entregas y calificación (por estudiante) ----------
+  var drafts = {}; // notas escritas pero aún no guardadas, para no perderlas al actualizarse la pantalla
+
+  function currentGroups(){
+    var sel = document.getElementById("stu-select").value || "__all__";
+    var q = normName(document.getElementById("stu-search").value);
+    var status = document.getElementById("stu-status").value;
+    var res = [];
+    studentGroups().forEach(function(g){
+      if(sel !== "__all__" && g.key !== sel) return;
+      if(sel === "__all__" && q && g.key.indexOf(q) === -1) return;
+      var subs = g.subs.filter(function(s){
+        var graded = !!gradeRecord(s);
+        return status === "todas" || (status === "pendientes" && !graded) || (status === "calificadas" && graded);
+      });
+      if(subs.length) res.push({ key: g.key, name: g.name, subs: subs });
+    });
+    return res;
+  }
+
+  function buildSubCard(sub){
+    var rec = gradeRecord(sub);
+    var d = drafts[sub.id] || {};
+    var gVal = d.grade != null ? d.grade : (rec ? rec.grade : "");
+    var fVal = d.feedback != null ? d.feedback : (rec ? (rec.feedback || "") : "");
+    var area = areaOfSub(sub), grade = gradeOfSub(sub);
+    var div = document.createElement("div");
+    div.className = "card " + areaCls(area);
+    div.innerHTML =
+      '<h3>' + esc(titleOfSub(sub)) + '</h3>' +
+      (area ? '<span class="tag ' + areaCls(area) + '">' + areaLabel(area) + '</span>' : '') +
+      (grade ? '<span class="tag g' + esc(grade) + '">Grado ' + gradeLabel(esc(grade)) + '</span>' : '') +
+      (rec ? '<span class="tag ok">Calificado: ' + esc(rec.grade) + '</span>' : '<span class="tag pending">Sin calificar</span>') +
+      '<br><small>Enviado: ' + esc(dateOfSub(sub)) + '</small>' +
+      '<div class="ans-text">' + esc(sub.answerText) + '</div>' +
+      (sub.image && sub.image.dataUrl ? '<img class="preview" loading="lazy" src="' + sub.image.dataUrl + '">' : '') +
+      fileAttachHtml(sub.file, "Descargar archivo entregado") + '<br>' +
+      '<label>Nota</label><input type="text" class="g-grade" value="' + escAttr(gVal) + '" placeholder="Ej: 4.5 / 10 / Excelente">' +
+      '<label>Retroalimentación</label><textarea class="g-feedback" placeholder="Comentario para el estudiante">' + esc(fVal) + '</textarea>' +
+      '<button class="btn tec small" data-act="save">Guardar calificación</button>';
+
+    var gradeInput = div.querySelector(".g-grade");
+    var feedbackInput = div.querySelector(".g-feedback");
+    function saveDraft(){ drafts[sub.id] = { grade: gradeInput.value, feedback: feedbackInput.value }; }
+    gradeInput.addEventListener("input", saveDraft);
+    feedbackInput.addEventListener("input", saveDraft);
+
+    div.querySelector('[data-act="save"]').addEventListener("click", function(){
+      var gradeVal = gradeInput.value.trim();
+      var feedback = feedbackInput.value.trim();
+      if(!gradeVal){ alert("Escribe una nota."); return; }
+      if(!isTeacher || !me || me.permisos.indexOf(sub.taskKey) === -1){ alert("No tienes permiso para calificar esta entrega."); return; }
+      var record = {
+        submissionId: sub.id, taskId: sub.taskId, taskKey: sub.taskKey, taskTitle: titleOfSub(sub),
+        studentName: sub.studentName, studentGrade: gradeOfSub(sub),
+        grade: gradeVal, feedback: feedback,
+        gradedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      db.collection("grades").doc(sub.id).set(record).then(function(){
+        delete drafts[sub.id];
+        toast("Calificación guardada: " + sub.studentName);
+      }).catch(function(err){ alert("No se pudo guardar: " + err.message); });
+    });
+    return div;
+  }
+
+  function renderEntregas(){
+    var sel = document.getElementById("stu-select");
+    var q = normName(document.getElementById("stu-search").value);
+    var prev = sel.value || "__all__";
+    var visible = studentGroups().filter(function(g){ return !q || g.key.indexOf(q) !== -1; });
+
+    sel.innerHTML = "";
+    var optAll = document.createElement("option");
+    optAll.value = "__all__";
+    optAll.textContent = "Todos los estudiantes (A–Z) · " + visible.length;
+    sel.appendChild(optAll);
+    visible.forEach(function(g){
+      var o = document.createElement("option");
+      o.value = g.key; o.textContent = g.name + " · " + g.subs.length + " entrega(s)";
+      sel.appendChild(o);
+    });
+    sel.value = visible.some(function(g){ return g.key === prev; }) ? prev : "__all__";
+
+    var wrap = document.getElementById("submissions-list");
+    var groups = currentGroups();
+    if(groups.length === 0){
+      wrap.innerHTML = '<div class="empty">' + (state.submissions.length ? "No hay entregas con ese filtro." : "Aún no hay entregas.") + '</div>';
+      return;
+    }
+    wrap.innerHTML = "";
+    groups.forEach(function(g){
+      var head = document.createElement("div");
+      head.className = "stu-head";
+      head.innerHTML = '<h2>' + esc(g.name) + '</h2><small>' + g.subs.length + ' entrega(s)</small>';
+      wrap.appendChild(head);
+      sortedSubs(g.subs).forEach(function(sub){ wrap.appendChild(buildSubCard(sub)); });
+    });
+  }
+
+  document.getElementById("stu-search").addEventListener("input", renderEntregas);
+  document.getElementById("stu-select").addEventListener("change", renderEntregas);
+  document.getElementById("stu-status").addEventListener("change", renderEntregas);
+
+  // ---------- descargas ----------
+  function csvRowsForSubs(subs, withAnswer){
+    var header = ["Estudiante", "Grado", "Área", "Tarea", "Fecha de entrega", "Estado", "Nota", "Retroalimentación"];
+    if(withAnswer) header = header.concat(["Respuesta escrita", "Foto adjunta", "Archivo adjunto"]);
+    var rows = [header];
+    sortedSubs(subs).forEach(function(sub){
+      var rec = gradeRecord(sub);
+      var g = gradeOfSub(sub), a = areaOfSub(sub);
+      var row = [
+        sub.studentName || "", g ? g + "°" : "", a ? areaLabel(a) : "", titleOfSub(sub), dateOfSub(sub),
+        rec ? "Calificado" : "Sin calificar", rec ? rec.grade : "", rec ? (rec.feedback || "") : ""
+      ];
+      if(withAnswer) row = row.concat([sub.answerText || "", sub.image && sub.image.dataUrl ? "Sí" : "No", sub.file ? sub.file.name : ""]);
+      rows.push(row);
+    });
+    return rows;
+  }
+
+  function reportSubHtml(sub){
+    var rec = gradeRecord(sub);
+    var g = gradeOfSub(sub), a = areaOfSub(sub);
+    var h = '<div class="sub"><h3>' + esc(titleOfSub(sub)) + '</h3>' +
+      '<div class="meta">' + (a ? esc(areaLabel(a)) + ' · ' : '') + (g ? 'Grado ' + esc(gradeLabel(g)) + ' · ' : '') + 'Enviado: ' + esc(dateOfSub(sub)) + '</div>' +
+      '<div class="ans">' + (sub.answerText ? esc(sub.answerText) : '<em>(sin texto)</em>') + '</div>';
+    if(sub.image && sub.image.dataUrl) h += '<img src="' + sub.image.dataUrl + '" alt="Foto de la entrega">';
+    if(sub.file && sub.file.dataUrl) h += '<p><a href="' + sub.file.dataUrl + '" download="' + escAttr(sub.file.name) + '">⬇ Archivo adjunto: ' + esc(sub.file.name) + '</a></p>';
+    h += '<div class="gradebox">' + (rec
+      ? '<b>Nota:</b> ' + esc(rec.grade) + (rec.feedback ? '<br><b>Retroalimentación:</b> ' + esc(rec.feedback) : '')
+      : '<b>Nota:</b> ________ &nbsp;&nbsp; <b>Observaciones:</b> ______________________________') + '</div></div>';
+    return h;
+  }
+
+  function buildReportHtml(groups, titulo){
+    var css = 'body{font-family:Segoe UI,Arial,sans-serif;color:#23292B;max-width:820px;margin:0 auto;padding:20px;line-height:1.45}' +
+      'h1{font-size:1.4rem}h2{font-size:1.2rem;border-bottom:2px solid #23292B;padding-bottom:4px;margin-top:0}h3{font-size:1rem;margin:0 0 4px 0}' +
+      '.meta{color:#5B645F;font-size:.8rem;margin-bottom:6px}.ans{white-space:pre-wrap;margin:8px 0}' +
+      '.sub{border:1px solid #D6D9CE;border-radius:6px;padding:12px;margin-bottom:12px;page-break-inside:avoid}' +
+      'img{max-width:100%;border-radius:4px;border:1px solid #D6D9CE}.gradebox{margin-top:10px;padding:8px;background:#F7F8F4;border-left:3px solid #1F6F78}' +
+      '.stu{margin-bottom:28px}.stu+.stu{page-break-before:always}button{padding:8px 14px;font-size:.9rem;cursor:pointer}' +
+      '@media print{.noprint{display:none}body{padding:0}}';
+    var html = '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>' + esc(titulo) + '</title><style>' + css + '</style></head><body>' +
+      '<div class="noprint"><button onclick="window.print()">Imprimir / Guardar como PDF</button></div>' +
+      '<h1>' + esc(titulo) + '</h1><p class="meta">Generado: ' + esc(new Date().toLocaleString("es-CO")) + '</p>';
+    groups.forEach(function(g){
+      html += '<section class="stu"><h2>' + esc(g.name) + '</h2>';
+      sortedSubs(g.subs).forEach(function(sub){ html += reportSubHtml(sub); });
+      html += '</section>';
+    });
+    return html + '</body></html>';
+  }
+
+  function currentDownloadInfo(){
+    var groups = currentGroups();
+    var subs = [];
+    groups.forEach(function(g){ subs = subs.concat(g.subs); });
+    var single = groups.length === 1 && (document.getElementById("stu-select").value || "__all__") !== "__all__";
+    return { groups: groups, subs: subs, single: single, name: single ? groups[0].name : "todos" };
+  }
+
+  document.getElementById("dl-csv").addEventListener("click", function(){
+    var info = currentDownloadInfo();
+    if(!info.subs.length){ alert("No hay entregas para descargar con este filtro."); return; }
+    downloadCSV(csvRowsForSubs(info.subs, true), "entregas_" + slug(info.name) + "_" + todayStr() + ".csv");
+  });
+
+  document.getElementById("dl-report").addEventListener("click", function(){
+    var info = currentDownloadInfo();
+    if(!info.subs.length){ alert("No hay entregas para descargar con este filtro."); return; }
+    var titulo = info.single ? "Entregas de " + info.name : "Entregas de todos los estudiantes";
+    downloadFile(buildReportHtml(info.groups, titulo), "informe_entregas_" + slug(info.name) + "_" + todayStr() + ".html", "text/html;charset=utf-8;");
+  });
+
+  // ---------- resumen ----------
+  function renderGradesSummary(){
+    var wrap = document.getElementById("grades-summary");
+    if(state.submissions.length === 0){ wrap.innerHTML = '<div class="empty">Aún no hay entregas.</div>'; return; }
+    var html = '<table class="grades"><tr><th>Estudiante</th><th>Grado</th><th>Tarea</th><th>Nota</th></tr>';
+    sortedSubs(state.submissions).forEach(function(sub){
+      var rec = gradeRecord(sub), g = gradeOfSub(sub);
+      html += '<tr><td>' + esc(sub.studentName) + '</td><td>' + (g ? esc(gradeLabel(g)) : '—') + '</td><td>' + esc(titleOfSub(sub)) + '</td><td>' +
+        (rec ? esc(rec.grade) : '<span class="tag pending">Sin calificar</span>') + '</td></tr>';
+    });
+    wrap.innerHTML = html + '</table>';
+  }
+
+  document.getElementById("export-csv").addEventListener("click", function(){
+    if(!state.submissions.length){ alert("Aún no hay entregas."); return; }
+    downloadCSV(csvRowsForSubs(state.submissions, false), "resumen_calificaciones_" + todayStr() + ".csv");
+  });
+
+  // ================= ESTUDIANTE =================
+  document.getElementById("s-grade-filter").addEventListener("change", function(){ refreshAll(); });
+
+  function renderStudentTasksList(){
+    var wrap = document.getElementById("s-tasks-list");
+    var gradeVal = document.getElementById("s-grade-filter").value;
+    var list = state.tasks.filter(function(t){ return gradeVal === "todos" || t.grade === gradeVal; });
+    if(list.length === 0){ wrap.innerHTML = '<div class="empty">Todavía no hay tareas para este grado.</div>'; return; }
+    wrap.innerHTML = "";
+    list.forEach(function(task){
+      var div = document.createElement("div");
+      div.className = "card " + areaCls(task.area);
+      div.innerHTML = '<div class="subject-banner '+areaCls(task.area)+'"><span class="emoji">'+areaEmoji(task.area)+'</span> '+areaLabel(task.area)+'</div>'+
+        (task.grade ? '<span class="tag g'+esc(task.grade)+'">Grado '+gradeLabel(task.grade)+'</span>' : '')+
+        '<h3>'+esc(task.title)+'</h3>'+
+        (task.dueDate ? '<small>Entrega: '+esc(task.dueDate)+'</small><br>' : '')+
+        '<p>'+esc(task.description)+'</p>'+
+        (task.criteria && task.criteria.length ? ('<small>Se evaluará: '+task.criteria.map(function(c){return esc(c.item)+(c.points?" ("+esc(c.points)+" pts)":"");}).join(", ")+'</small><br>') : '')+
+        fileAttachHtml(task.file, "Descargar archivo de la tarea");
+      wrap.appendChild(div);
+    });
+  }
+
+  document.getElementById("s-task-select").addEventListener("change", renderStudentTaskDetail);
+  function renderStudentTaskDetail(){
+    var sel = document.getElementById("s-task-select");
+    var task = state.tasks.find(function(t){ return t.id === sel.value; });
+    var detail = document.getElementById("s-task-detail");
+    var form = document.getElementById("s-submit-form");
+    if(!task){ detail.innerHTML = ""; form.style.display = "none"; return; }
+    detail.innerHTML = '<div class="card '+areaCls(task.area)+'">'+
+      '<div class="subject-banner '+areaCls(task.area)+'"><span class="emoji">'+areaEmoji(task.area)+'</span> '+areaLabel(task.area)+'</div>'+
+      (task.grade ? '<span class="tag g'+esc(task.grade)+'">Grado '+gradeLabel(task.grade)+'</span>' : '')+
+      '<h3>'+esc(task.title)+'</h3><p>'+esc(task.description)+'</p>'+
+      fileAttachHtml(task.file, "Descargar archivo de la tarea")+
+      '</div>';
+    form.style.display = "";
+  }
+
+  document.getElementById("s-image").addEventListener("change", function(e){
+    var file = e.target.files[0];
+    var preview = document.getElementById("s-image-preview");
+    if(!file){ pendingImage = null; preview.innerHTML=""; return; }
+    var reader = new FileReader();
+    reader.onload = function(){
+      var img = new Image();
+      img.onload = function(){
+        var maxW = 700;
+        var scale = Math.min(1, maxW / img.width);
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width * scale; canvas.height = img.height * scale;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        // Prueba varias calidades hasta que quepa en el límite de tamaño
+        var qualities = [0.6, 0.4, 0.25];
+        var dataUrl = canvas.toDataURL("image/jpeg", qualities[0]);
+        for(var i=1; i<qualities.length && dataUrl.length > MAX_FILE_SIZE*1.37; i++){
+          dataUrl = canvas.toDataURL("image/jpeg", qualities[i]);
+        }
+        if(dataUrl.length > MAX_FILE_SIZE*1.37){
+          alert("La foto sigue siendo muy pesada incluso comprimida. Prueba con otra foto o toma una con menor resolución.");
+          preview.innerHTML = ""; pendingImage = null; e.target.value = "";
+          return;
+        }
+        pendingImage = { dataUrl: dataUrl };
+        preview.innerHTML = '<img class="preview" src="'+dataUrl+'">';
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById("s-file-btn").addEventListener("click", function(){ document.getElementById("s-file-input").click(); });
+  document.getElementById("s-file-input").addEventListener("change", function(e){
+    var file = e.target.files[0]; if(!file) return;
+    readFileAsBase64(file, function(att){
+      pendingStudentFile = att;
+      document.getElementById("s-file-name").textContent = att.name;
+      document.getElementById("s-file-name").classList.remove("empty");
+      document.getElementById("s-file-remove").style.display = "";
+    }, function(err){
+      alert(err.message);
+      e.target.value = "";
+    });
+  });
+  document.getElementById("s-file-remove").addEventListener("click", function(){
+    pendingStudentFile = null;
+    document.getElementById("s-file-input").value = "";
+    document.getElementById("s-file-name").textContent = "Sin archivo adjunto";
+    document.getElementById("s-file-name").classList.add("empty");
+    document.getElementById("s-file-remove").style.display = "none";
+  });
+
+  document.getElementById("s-generate-submission").addEventListener("click", function(){
+    var sel = document.getElementById("s-task-select");
+    var task = state.tasks.find(function(t){ return t.id === sel.value; });
+    if(!task){ alert("Elige una tarea."); return; }
+    var name = document.getElementById("s-name").value.trim();
+    var answer = document.getElementById("s-answer").value.trim();
+    if(!name){ alert("Escribe tu nombre."); return; }
+    if(!answer && !pendingImage){ alert("Escribe tu respuesta o adjunta una foto."); return; }
+
+    var btn = document.getElementById("s-generate-submission");
+    btn.disabled = true; btn.textContent = "Enviando...";
+
+    var subId = uid();
+
+    var imageInfo = pendingImage ? { dataUrl: pendingImage.dataUrl } : null;
+    var fileInfo = pendingStudentFile || null;
+
+    // Firestore no acepta documentos de más de 1MB en total: revisamos antes de intentar guardar.
+    var totalEstimate = (answer||"").length + (imageInfo ? imageInfo.dataUrl.length : 0) + (fileInfo ? fileInfo.dataUrl.length : 0);
+    if(totalEstimate > 950000){
+      alert("La foto y/o el archivo adjuntos son muy pesados juntos. Intenta adjuntar solo uno de los dos, o usa archivos más livianos.");
+      btn.disabled = false; btn.textContent = "Enviar mi entrega";
+      return;
+    }
+
+    var submission = {
+      taskId: task.id, taskKey: taskKey(task), taskTitle: task.title, taskGrade: task.grade || "", taskArea: task.area || "", studentName: name,
+      answerText: answer, image: imageInfo, file: fileInfo,
+      submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    db.collection("submissions").doc(subId).set(submission).then(function(){
+      document.getElementById("s-name").value=""; document.getElementById("s-answer").value="";
+      document.getElementById("s-image").value=""; document.getElementById("s-image-preview").innerHTML="";
+      pendingImage = null;
+      document.getElementById("s-file-remove").click();
+      document.getElementById("submission-msg").innerHTML = '<div class="hint">¡Entrega enviada! Tu docente la verá en la sección de Entregas.</div>';
+      btn.disabled = false; btn.textContent = "Enviar mi entrega";
+    }).catch(function(err){
+      alert("No se pudo enviar la entrega: " + err.message);
+      btn.disabled = false; btn.textContent = "Enviar mi entrega";
+    });
+  });
+
+  // ---------- mis calificaciones (estudiante) ----------
+  document.getElementById("g-search-btn").addEventListener("click", renderStudentGrades);
+  function renderStudentGrades(){
+    var wrap = document.getElementById("grades-list");
+    var nameFilter = document.getElementById("g-name-filter").value.trim().toLowerCase();
+    if(!nameFilter){ wrap.innerHTML = '<div class="empty">Escribe tu nombre arriba y toca "Buscar".</div>'; return; }
+    var mine = state.grades.filter(function(g){ return normName(g.studentName) === normName(nameFilter); });
+    if(mine.length === 0){ wrap.innerHTML = '<div class="empty">No encontramos calificaciones con ese nombre todavía.</div>'; return; }
+    wrap.innerHTML = "";
+    mine.forEach(function(g){
+      var div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = '<h3>'+esc(g.taskTitle)+'</h3><span class="tag ok">Nota: '+esc(g.grade)+'</span>'+
+        (g.feedback ? '<p>'+esc(g.feedback)+'</p>' : '');
+      wrap.appendChild(div);
+    });
+  }
+
+  // ---------- refresh everything ----------
+  function refreshAll(){
+    renderTasksList();
+    // No reconstruir las tarjetas mientras el docente escribe una nota (evita perder el texto/foco)
+    var ae = document.activeElement;
+    var typing = ae && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA") && document.getElementById("submissions-list").contains(ae);
+    if(!typing) renderEntregas();
+    renderGradesSummary();
+    renderStudentTasksList();
+    var sGradeVal = document.getElementById("s-grade-filter").value;
+    var sFiltered = sGradeVal === "todos" ? state.tasks : state.tasks.filter(function(t){ return t.grade === sGradeVal; });
+    fillTaskSelect(document.getElementById("s-task-select"), sFiltered);
+    renderStudentTaskDetail();
+  }
+
+  addCriteriaRow();
+  refreshAll();
+})();
+</script>
+</body>
+</html>
